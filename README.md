@@ -8,5 +8,3 @@
 目录
 ----
 1. thinkinjava：https://github.com/SimplyY/review_everyweek/tree/master/thinkinjava
-
-2. [https://github.com/SimplyY/review_everyweek/tree/master/thinkinjava](https://github.com/SimplyY/review_everyweek/tree/master/thinkinjava "thinkinjava")
