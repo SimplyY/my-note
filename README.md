@@ -1,12 +1,12 @@
 # review_everyweek
-about code,book
+- about code,book
 
-and ....ues chinese
+- and ....ues chinese
 
-推荐用pocket阅读（效果比读在线书还棒）
+- 推荐用pocket阅读（效果比读在线书还棒）
 
 目录
 ----
-thinkinjava:
+1. thinkinjava：https://github.com/SimplyY/review_everyweek/tree/master/thinkinjava
 
-https://github.com/SimplyY/review_everyweek/tree/master/thinkinjava
+2. [https://github.com/SimplyY/review_everyweek/tree/master/thinkinjava](https://github.com/SimplyY/review_everyweek/tree/master/thinkinjava "thinkinjava")
