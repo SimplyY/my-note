@@ -13,7 +13,9 @@
 	> private void function(int required, String ... trailing){
 	> ....
 	> }
-
+接口
+----
+如果是抽象类实现一个接口，那么抽象类中可以不具体实现接口的方法（保持其抽象性），而由其子类去实现。
 
 易错
 ----
