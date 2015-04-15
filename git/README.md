@@ -1,7 +1,6 @@
-笔记
-===
 git笔记
------
+====
+---
 
 
 新建软件仓库步骤
@@ -20,14 +19,14 @@ git笔记
 在pull时发生冲突的话，现更改冲突，然后重新add 再commit即可
 
 让.gitignore对已经在仓库里的文件起作用
----
+------
 1. git rm -r --cached .
 2. git add .
 3. git commit -m ".gitignore is now working"
 
 
 基本操作
----
+------
 - 比如，让Git显示颜色，会让命令输出看起来更醒目： git config --global color.ui true
 - git status(时刻掌握仓库当前状态，告诉文件修改状态)
 - git diff(查看文件修改内容)
@@ -38,14 +37,14 @@ git笔记
 
 
 回退
----
+----
 - git reset --hard HEAD^(回退到上一个版本)或者--hard id(前七位数即可) 。
 - cat查看文件内容。
 - git reflog(查看每一次命令，包括reset这种回退命令)
 - git checkout -- file(使工作区的file回到最后一次 commit 或 add 的状态 **一键还原，无论误操作是修改还是删除**)，git reset HEAD file(把file回退到最后一次commit的版本)
 
 分支
----
+----
 **在git中应该大量使用分支操作**
 
 - git checkout -b dev(= git branch dev + git checkout dev )
@@ -58,18 +57,18 @@ git笔记
 
 
 修复bug
----
+----
 - 修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
 - 当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场。git stash list显示stash列表。
 
 添加新功能
----
+----
 添加一个新功能时，你肯定不希望因为一些实验性质的代码，把主分支搞乱了，所以，每添加一个新功能，最好新建一个feature分支，在上面开发，完成后，合并，最后，删除该feature分支。
 
 - git checkout -b feature-vulcan
 
 多人协作
----
+----
 - 查看远程库信息，使用git remote -v；
 - 本地新建的分支如果不推送到远程，对其他人就是不可见的；
 - 从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
@@ -78,7 +77,7 @@ git笔记
 - 从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
 
 标签管理
----
+----
 发布一个版本时，我们通常先在版本库中打一个标签，这样，就唯一确定了打标签时刻的版本。将来无论什么时候，取某个标签的版本，就是把那个打标签的时刻的历史版本取出来。所以，标签也是版本库的一个快照。
 
 Git的标签虽然是版本库的快照，但其实它就是指向某个commit的指针（跟分支很像对不对？但是分支可以移动，标签不能移动），所以，创建和删除标签都是瞬间完成的。
