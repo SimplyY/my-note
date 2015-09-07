@@ -33,12 +33,8 @@ cmd or ctrl + p 在项目内打开任何文件
 
 ### useful package
 1. fold-functions
-2. htmlhint(xxhint 代码错误提醒插件)
-3. jshint
 4. javascript-snippets
-5. Atom Csscomb
 6. Autocomplete Html Entities
 7. autocomplete-python
-8. autoprefixer
 9. line-count
 10. pretty-json
