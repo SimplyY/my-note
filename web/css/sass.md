@@ -59,7 +59,7 @@ body {
   color: $primary-color;
 }
 ```
-支持变量
+#### 支持变量
 ```
 $side: left;
 .rounded {

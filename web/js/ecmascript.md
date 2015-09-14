@@ -18,3 +18,14 @@ var a = map.call('Hello World', function(x) { return x.charCodeAt(0); });
 // or
 var a = [].map.call('Hello World', function(x) { return x.charCodeAt(0); });
 ```
+
+## setTimeout
+
+### 循环计时器
+```js
+setTimeout(function() {
+//  do something
+
+
+}, 0);
+```

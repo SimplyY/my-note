@@ -1,9 +1,31 @@
 ## 使用技巧
+win 下快捷键 cmd 为 ctrl （最好在 keybindings 里自行查查）
+
+### 关闭侧边栏
+'.platform-darwin':
+  'cmd-\': 'tree-view:toggle'
+
+### 切换 pane（类似标签）
+cmd + num
+
+### 分屏
+cmd + k， 加 方向键
 
 ### 多光标编辑大法
 cmd 或者 ctrl + 鼠标左键
 
+### 查找
+
+#### 文件
 cmd or ctrl + p 在项目内打开任何文件
+
+#### 文本
+ctrl + f 项目内查找
+
+ctrl + shift + f 项目内查找
+如图，大法好
+
+![image](https://cloud.githubusercontent.com/assets/8455579/9791443/abf90bbc-580d-11e5-8759-dcb7d9efb58c.png)
 
 
 ## packages
@@ -33,8 +55,12 @@ cmd or ctrl + p 在项目内打开任何文件
 
 ### useful package
 1. fold-functions
+2. htmlhint(xxhint 代码错误提醒插件)
+3. jshint
 4. javascript-snippets
+5. Atom Csscomb
 6. Autocomplete Html Entities
 7. autocomplete-python
+8. autoprefixer
 9. line-count
 10. pretty-json
