@@ -43,18 +43,20 @@ ctrl + shift + f 项目内查找
 5. file-icons(让你拥有高颜值的图标)
 6. Markdown Writer(在设置里面设置一下，就拥有了编辑 md 文件的各种快捷键)
 7. merge-conflicts (再也不怕 git 的合并冲突了，分分钟解决 conflicts)
+8. indent-guide-improved(给 indent guide改颜色~)
 
 ### very useful package
 1. Atom Beautify（格式化代码）
 2. django-templates(支持 html 的 templates 语法和补全)
 3. project-manager (神器)
-4. foldername-tabs package
+4. foldername-tabs
 5. minimap
 6. highlight-column and highlight-selected
 7. Japanese Wrap 中文和日文类似，解决了atom换行显示问题
+8. fold-functions
+
 
 ### useful package
-1. fold-functions
 2. htmlhint(xxhint 代码错误提醒插件)
 3. jshint
 4. javascript-snippets

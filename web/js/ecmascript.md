@@ -25,7 +25,7 @@ var a = [].map.call('Hello World', function(x) { return x.charCodeAt(0); });
 ```js
 setTimeout(function() {
 //  do something
-
+    setTimeout(arguments.callee, cycleTime)
 
 }, 0);
 ```
