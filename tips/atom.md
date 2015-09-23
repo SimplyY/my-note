@@ -6,10 +6,13 @@ win 下快捷键 cmd 为 ctrl （最好在 keybindings 里自行查查）
   'cmd-\': 'tree-view:toggle'
 
 ### 切换 pane（类似标签）
-cmd + num
+osx: cmd + num
+win: alt + num
 
 ### 分屏
-cmd + k， 加 方向键
+
+osx: cmd + k， 加 方向键
+win: ctrl + k, + 方向键
 
 ### 多光标编辑大法
 cmd 或者 ctrl + 鼠标左键
