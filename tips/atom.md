@@ -45,8 +45,8 @@ ctrl + shift + f 项目内查找
 4. browser-refresh(win) or browser-refresh-on-save(osx)
 5. file-icons(让你拥有高颜值的图标)
 6. Markdown Writer(在设置里面设置一下，就拥有了编辑 md 文件的各种快捷键)
-7. merge-conflicts (再也不怕 git 的合并冲突了，分分钟解决 conflicts)
-8. indent-guide-improved(给 indent guide改颜色~)
+7. Atom Ternjs
+8. Timecop(假如你的 atom 速度慢了，看看这个)
 
 ### very useful package
 1. Atom Beautify（格式化代码）
@@ -57,6 +57,8 @@ ctrl + shift + f 项目内查找
 6. highlight-column and highlight-selected
 7. Japanese Wrap 中文和日文类似，解决了atom换行显示问题
 8. fold-functions
+7. merge-conflicts (再也不怕 git 的合并冲突了，分分钟解决 conflicts)
+8. indent-guide-improved(给 indent guide改颜色~)
 
 
 ### useful package
