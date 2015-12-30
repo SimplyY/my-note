@@ -79,3 +79,17 @@ cmd + shift + f 项目内查找
 5. javascript-snippets
 6. todo-show
 9. line-count
+
+
+### 代码段
+
+有很多好用的代码段是为快速编写Markdown准备的。
+
+如果你输入img之后按下tab，你会得到像![]()这样的Markdown格式的图片代码。如果你输入table之后按下tab，你会得到一个非常棒的用于填充的示例表格。
+
+| Header One     | Header Two     |
+| :------------- | :------------- |
+| Item One       | Item Two       |
+虽然用于Markdown的代码段不多（b粗体，i斜体，code代码块，等等），它们会节省你用于寻找模糊的语法的时间。另外，你可以按下alt-shift-S，来寻找当前文件类型可用的代码段列表。
+
+可以在 config 文件夹里面的 snippts 里自定义 你自己的补全。
