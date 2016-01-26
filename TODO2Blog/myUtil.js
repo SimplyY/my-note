@@ -1,4 +1,5 @@
 myUtil = {
+    // url = document.URL;
     // url = http://127.0.0.1:8080/JnPlant/scene?scene_id=1&user_id=2
     // return Object {scene_id: "1", user_id: "2"}
     getQureyParams: function (url) {
@@ -20,6 +21,24 @@ myUtil = {
 
 };
 
+// 韦恩图给的灵感，来求增删改的元素，=。=
+var array = require("array-extended");
+function getOperateItems(oldItems, newItems) {
+    var addItems = array.difference(newItems, old);
+    var deleteItems = array.difference(old, newItems);
+
+    var allItems = array.union(newItems, oldItems);
+    var differenceItems = array.union(addItems, deleteItems);
+
+    var updateItems = array.difference(allItems, differenceItems);
+
+    return {
+        addItems: addItems,
+        deleteItems: deleteItems,
+        updateItems: updateItems
+    };
+}
+
 function isInArray(object, array) {
     for (var i = 0; i < array.length; i++) {
         if (JSON.stringify(object) === JSON.stringify(array[i])) {
@@ -29,9 +48,10 @@ function isInArray(object, array) {
     return false;
 }
 
-Function.prototype.getMultilines = function () {
-    return this.toString().slice(15,-4);
-};
+function getMultilinesStr(fun) {
+    return fun.toString().slice(15,-4);
+}
+
 var test_grammar = function(){/*
 E
 E->E+T
@@ -40,14 +60,15 @@ T->T*F
 T->F
 F->(E)
 F->i
-*/}.getMultilines();
+*/};
+getMultilinesStr(test_grammar);
 
 // 重复字符串
-String.prototype.repeat = function(num){//创建repeat方法
-    return new Array(num + 1).join(this);//创建个数为重复次数+1的数组，用字符串自身做为分隔符连接起来
-};
+function repeat(str, num) {
+    return Array(num + 1).join(str);//创建个数为重复次数+1的数组，用字符串自身做为分隔符连接起来
+}
 
 // 得到数组最后一个元素，浅复制
-Array.prototype.getLastElement = function () {
-    return this[this.length - 1];
-};
+function getLastElement(array) {
+    return array[array.length - 1];
+}

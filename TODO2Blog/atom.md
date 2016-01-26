@@ -92,4 +92,5 @@ cmd + shift + f 项目内查找
 | Item One       | Item Two       |
 虽然用于Markdown的代码段不多（b粗体，i斜体，code代码块，等等），它们会节省你用于寻找模糊的语法的时间。另外，你可以按下alt-shift-S，来寻找当前文件类型可用的代码段列表。
 
+#### 自定义代码段
 可以在 config 文件夹里面的 snippts 里自定义 你自己的补全。

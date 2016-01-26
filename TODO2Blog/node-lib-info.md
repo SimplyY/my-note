@@ -1,5 +1,3 @@
-
-
 ## node test
 ### mocha
 > JavaScript test framework  for node.js and the browser
@@ -87,43 +85,3 @@ request(app)
 
 ### nodemon
 实时监控 node 文件，比如服务器配置文件。
-
-
-### body-parser
-https://github.com/expressjs/body-parser
-
-> Node.js body parsing middleware.
-
-```js
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-```
-
-### method-override
-> use HTTP verbs such as PUT or DELETE in places where the client doesn't support it.
-
-https://github.com/expressjs/method-override
-
-Example:
-
-```js
-// server
-var connect        = require('connect')
-var methodOverride = require('method-override')
-app.use(methodOverride('X-HTTP-Method-Override'))
-Example call with header override using XMLHttpRequest:
-
-//client
-// override with the X-HTTP-Method-Override header in the request
-
-var xhr = new XMLHttpRequest()
-xhr.onload = onload
-xhr.open('post', '/resource', true)
-xhr.setRequestHeader('X-HTTP-Method-Override', 'DELETE')
-xhr.send()
-
-function onload() {
-  alert('got response: ' + this.responseText)
-}
-
-```

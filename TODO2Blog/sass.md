@@ -140,7 +140,9 @@ div {
 　　@include left(20px);
 }
 ```
+
 下面是一个mixin的实例，用来生成浏览器前缀。(大法好)
+
 ```
 @mixin rounded($vert, $horz, $radius: 10px) {
 　　border-#{$vert}-#{$horz}-radius: $radius;
