@@ -243,3 +243,101 @@ root reducer 会返回一个完整的状态树，State 对象上的各个字段�
 - 最后一层是 store 的 dispatch 方法分发的 action ，作为数据流的起点，去调用相应改变 state 的方法，(view or others' dispatch)action -> reducer。
 
 也就是永远是 action -> reducer -> store -> view 的单向数据流。
+
+
+## 在 React 应用中使用 Redux
+
+和 Flux 类似，Redux 也是需要注册一个回调函数 store.subscribe(listener) 来获取 State 的更新(tore.getState() 拿到新的 State)，然后我们要在 listener 里面调用 setState() 来更新 React 组件。
+
+Redux 官方提供了 [react-redux](https://github.com/rackt/react-redux) 来简化 React 和 Redux 之间的绑定，不再需要像 Flux 那样手动注册／解绑回调函数。
+### react-redux
+本库深受 **分离容器组件和展示组件** 思想启发。
+
+在应用中，只有 **最顶层组件是对 Redux 可知**（例如路由处理）这是很好的。所有它们的子组件都应该是“笨拙”的，并且是通过 props 获取数据。
+
+|            | 容器组件              | 展示组件              |
+|:-----------|:----------------------|:----------------------|
+| 位置       | 最顶层，路由处理      | 中间和子组件          |
+| 使用 Redux | 是                    | 否                    |
+| 读取数据   | 从 Redux 获取 state   | 从 props 获取数据     |
+| 修改数据   | 向 Redux 发起 actions | 从 props 调用回调函数 |
+
+### 不使用 Redux 的展示组件
+
+让我们看下，我们拥有一个 <Counter /> 的展示组件，它有一个通过 props 传过来的值，和一个函数 onIncrement，当你点击 “Increment” 按钮时就会调用这个函数：
+
+```js
+import { Component } from 'react';
+
+export default class Counter extends Component {
+  render() {
+    return (
+      <button onClick={this.props.onIncrement}>
+        {this.props.value}
+      </button>
+    );
+  }
+}
+```
+
+### 容器组件使用 connect() 方法连接 Redux
+我们用 react-redux 提供的 connect() 方法为“笨拙”的 Counter 添加一个 **容器组件**。connect() 允许你从 Redux store 中指定准确的 state 到想要获取 state 的组件中。这让你能获取到任何级别颗粒度的数据。
+
+使用方法，**将 redux 的 state 和（要 dispatch 的）action 映射到组件的 props** 里即可，这样以来，就完成了 redux 到 react 的数据流的部署（state -> props，action -> props(event)）。
+
+实现时需要俩函数 mapStateToProps、mapDispatchToProps 作为 connect 的参数，具体代码如下。
+
+```js
+// containers/CounterContainer.js
+
+import { Component } from 'react';
+import { connect } from 'react-redux';
+
+import Counter from '../components/Counter';
+import { increment } from '../actionsCreators';
+
+// 哪些 Redux 全局的 state 是我们组件想要通过 props 获取的？
+function mapStateToProps(state) {
+    return {
+        value: state.counter
+    };
+}
+
+// 哪些 action 创建函数是我们想要通过 props 获取的？
+function mapDispatchToProps(dispatch) {
+    return {
+        onIncrement: () => dispatch(increment())
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+```
+
+
+
+### 注入 Redux Store
+
+最后，我们实际上是怎么连接到 Redux store 的呢？我们需要在 **根组件中创建这个 store**。对于客户端应用而言，根组件是一个很好的地方。对于服务端渲染而言，你可以在处理请求中完成这个。
+
+关键是从 React Redux 将整个视图结构 **包装进 <Provider>**。
+
+```js
+import ReactDOM from 'react-dom';
+import { Component } from 'react';
+import { Provider } from 'react-redux';
+
+class App extends Component {
+    render() {
+        // ...
+    }
+}
+
+const targetEl = document.getElementById('root');
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    targetEl
+);
+```
