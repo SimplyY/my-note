@@ -287,3 +287,6 @@ componentWillUpdate(object nextProps, object nextState)
 #### 4. render
 #### 5. componentDidUpdate
 在组件的更新已经同步到 `DOM` 中之后立刻被调用
+
+### spa 使用路由 react-router
+详情见 http://react-guide.github.io/react-router-cn/docs/Introduction.html

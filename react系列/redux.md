@@ -341,3 +341,6 @@ ReactDOM.render(
     targetEl
 );
 ```
+
+### spa 路由 react-router-redux
+see readme in https://github.com/rackt/react-router-redux
