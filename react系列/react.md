@@ -195,7 +195,7 @@ React.createClass({
         }
     }
     // ....
-}
+})
 ```
 
 #### mixins

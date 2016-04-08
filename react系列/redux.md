@@ -1,6 +1,6 @@
 ## 参考链接
-https://hulufei.gitbooks.io/react-tutorial/content/redux-basic.html
-es6
+https://camsong.github.io/redux-in-chinese/docs/introduction/index.html
+
 
 ## 进化 Flux
 通过对比 Redux 和 Flux 的实现来感受一下 Redux 带来的惊艳。
@@ -26,7 +26,7 @@ export function addTodo(text) {
 }
 ```
 
-这一步把 dispatcher 和 action 解藕了，很快我们就能看到它带来的好处。
+这一步把 dispatcher 和 action 解耦了，很快我们就能看到它带来的好处。
 接下来是 Store，这是 Flux 里面的 Store：
 
 ```js
@@ -75,7 +75,7 @@ export default function TodoStore(state = initialState, action) {
 #### 基本概念
 - 图中的 dispatch 是 store.dispatch(action), 也就是分发一个 action
 - reducer 则是管理 state, 也就是 `(oldState, action) => newState` 的集合。当 action 被分发，就会由 reducer 根据 action 的类型来调用对应的 `(oldState, action) => newState` 。
-- listener 则是回调函数，当 state 改变的时候被调用。其中 listenner 很有可能会对 view 做改变。
+- listener 则是回调函数，当 state 改变的时候被调用（当 state 改变后 view 会自动改变）。其中 listenner 可以对 view 做额外的改变。
 - view 即 react， 会在最后说如何将 redux 和 react 联合使用。
 
 #### 初始化过程
@@ -215,7 +215,7 @@ Action 是一个包含 { type, payload } 的对象，它描述了“发生了什
 
 #### 2. Action 会触发给 Store 指定的 root reducer
 
-root reducer 会返回一个完整的状态树，State 对象上的各个字段值可以由各自的 reducer 函数处理并返回新的值。
+root reducer 会返回一个完整的状态树(state 对象)，State 对象上的各个字段值可以由各自的 reducer 函数处理并返回新的值。
 
 - reducer 函数接受 (state, action) 两个参数
 - reducer 函数判断 action.type 然后处理对应的 action.payload 数据来更新并返回一个新的 state
@@ -259,8 +259,10 @@ Redux 官方提供了 [react-redux](https://github.com/rackt/react-redux) 来简
 |:-----------|:----------------------|:----------------------|
 | 位置       | 最顶层，路由处理      | 中间和子组件          |
 | 使用 Redux | 是                    | 否                    |
-| 读取数据   | 从 Redux 获取 state   | 从 props 获取数据     |
-| 修改数据   | 向 Redux 发起 actions | 从 props 调用回调函数 |
+| 读取数据   | 从 Redux 获取 state   | 从 props（即state） 获取数据     |
+| 修改数据   | 向 Redux 发起 actions | 从 props（即dispatch） 调用回调函数 |
+
+我们可以发现展示组件需要 store.state 和 store.dispatch 这样的 props，后面的 connect 方法，就是将这俩变成 props 传给组件。
 
 ### 不使用 Redux 的展示组件
 
@@ -280,10 +282,52 @@ export default class Counter extends Component {
 }
 ```
 
-### 容器组件使用 connect() 方法连接 Redux
-我们用 react-redux 提供的 connect() 方法为“笨拙”的 Counter 添加一个 **容器组件**。connect() 允许你从 Redux store 中指定准确的 state 到想要获取 state 的组件中。这让你能获取到任何级别颗粒度的数据。
+### 注入 Redux Store（重要）
 
-使用方法，**将 redux 的 state 和（要 dispatch 的）action 映射到组件的 props** 里即可，这样以来，就完成了 redux 到 react 的数据流的部署（state -> props，action -> props(event)）。
+我们实际上是怎么连接到 Redux store 的呢？我们需要在 **根组件中创建这个 store**。对于客户端应用而言，根组件是一个很好的地方。对于服务端渲染而言，你可以在处理请求中完成这个。
+
+关键是从 React Redux 将整个视图结构 包装进`<Provider>`。
+
+```js
+import ReactDOM from 'react-dom';
+import { Component } from 'react';
+import { Provider } from 'react-redux';
+
+class App extends Component {
+    render() {
+        // ...
+    }
+}
+
+const targetEl = document.getElementById('root');
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    targetEl
+);
+```
+
+### 容器组件使用 connect() 方法连接 Redux（重要）
+#### 作用 why do this？
+> 实际上它就是在帮你 **把容器组件连接上 store**，也就是在这里完成 store 在此组件的 **职责**
+
+
+1. 有了它 **你不需要在 react 组件里面手动注册** `store.subscrible(listener)`，和在 `listener` 里手动`store.setState(newState)`，connect() 已经帮你自动完成了。
+    - 因为这里的 `connect()` 已经非常聪明的帮你在组件里 `subscrible(handleChange)`。
+    - 而且 `handleChange` 方法里调用了 `store.setState()`（react 组件更新 state 的方式）
+    - 这样以来，当 state change 的时候，view 也就被自动重新 render了。整个过程都是自动化的（非常棒，但是大家要知道原理）。
+2. 如何 **很方便的将 store 的 state 和 dispath 以 props 的形式分发给容器组件**，这里就是作为两个参数传给 connect，即 mapStateToProps、mapDispatchToProps 作为 connect 的参数。
+
+#### state and dispath
+子组件获取 state and dispath 的方式，通过父组件传递 props 即可
+
+react-redux 提供的 connect() 允许你从 Redux store 中指定准确的 state 到想要获取 state 的组件中。这让你在任何组件里能获取到任何级别颗粒度的数据。
+
+而 dispatch 则允许此组件或子组件拥有 store.dispatch 的引用，这样在组件的 view 的交互功能里就可以产生新的 action，并 dispatch(action)
+
+#### 使用方法
 
 实现时需要俩函数 mapStateToProps、mapDispatchToProps 作为 connect 的参数，具体代码如下。
 
@@ -313,34 +357,6 @@ function mapDispatchToProps(dispatch) {
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ```
 
-
-
-### 注入 Redux Store
-
-最后，我们实际上是怎么连接到 Redux store 的呢？我们需要在 **根组件中创建这个 store**。对于客户端应用而言，根组件是一个很好的地方。对于服务端渲染而言，你可以在处理请求中完成这个。
-
-关键是从 React Redux 将整个视图结构 **包装进 <Provider>**。
-
-```js
-import ReactDOM from 'react-dom';
-import { Component } from 'react';
-import { Provider } from 'react-redux';
-
-class App extends Component {
-    render() {
-        // ...
-    }
-}
-
-const targetEl = document.getElementById('root');
-
-ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    targetEl
-);
-```
 
 ### spa 路由 react-router-redux
 see readme in https://github.com/rackt/react-router-redux

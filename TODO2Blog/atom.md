@@ -72,7 +72,9 @@ cmd + shift + f 项目内查找
 
 
 ### useful package
-1. Timecop(假如你的 atom 开启速度慢了，看看这个)
+1. Timecop(假如你的 atom 开
+
+    启速度慢了，看看这个)
 2. htmlhint
 3. jshint
 4. jqurey-snippets
